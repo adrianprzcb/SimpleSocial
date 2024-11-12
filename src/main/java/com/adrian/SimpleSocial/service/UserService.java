@@ -29,7 +29,6 @@ public class UserService {
     }
 
 
-
     private boolean verifyPassword(String rawPassword, String encodedPassword) {
         return passwordEncoder.matches(rawPassword, encodedPassword);
     }
