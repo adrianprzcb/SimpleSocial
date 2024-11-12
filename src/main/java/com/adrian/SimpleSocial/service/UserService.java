@@ -21,7 +21,8 @@ public class UserService {
     {
         // Implement logic to hash password using a secure hashing algorithm
         // (e.g., BCrypt)
-        return // Hashed password
+      /*  return // Hashed password*/
+        return "";
     }
 
     // Additional methods for login, retrieving user information, etc.
