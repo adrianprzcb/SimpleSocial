@@ -1,18 +1,17 @@
 package com.adrian.SimpleSocial.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
 import lombok.Data;
-import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
 @Data
+@Entity
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(nullable = false, unique = true)
