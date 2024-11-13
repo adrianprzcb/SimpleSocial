@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/users") // Base path for user endpoints
+@RequestMapping("/api") // Base path for user endpoints
 public class UserController {
 
     @Autowired
@@ -23,6 +23,18 @@ public class UserController {
 
     }
 
-    // Additional methods for login, profile retrieval, etc.
+    @PostMapping("/login")
+    public ResponseEntity<String>
+    login(@RequestBody User request) {
+        User user = userService.loginUser(request.getUsername(),
+                request.getPassword());
+        if (user != null) {
+            // Generate authentication token or session ID
+            return ResponseEntity.ok("Login successful");
+        } else {
+            return ResponseEntity.badRequest().body("Invalid credentials");
+        }
+    }
+
 
 }
