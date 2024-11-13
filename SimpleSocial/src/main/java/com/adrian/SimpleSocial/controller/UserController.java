@@ -4,11 +4,9 @@ import com.adrian.SimpleSocial.entity.User;
 import com.adrian.SimpleSocial.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "http://127.0.0.1:3000")
 @RestController
 @RequestMapping("/api") // Base path for user endpoints
 public class UserController {
@@ -16,11 +14,16 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/register") // POST request for registration
-    public ResponseEntity<User> registerUser(@RequestBody User user) {
-        User registeredUser = userService.registerUser(user);
-        return ResponseEntity.ok(registeredUser);
-
+    @PostMapping("/register")
+    public ResponseEntity<?> registerUser(@RequestBody User user) {
+        try {
+            User registeredUser = userService.registerUser(user);
+            return ResponseEntity.ok(registeredUser);
+            // Return the registered user on success
+        } catch (Exception e) {
+            // Handle exception (e.g., username already exists)
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @PostMapping("/login")

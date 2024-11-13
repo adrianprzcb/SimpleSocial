@@ -15,8 +15,13 @@ public class UserService {
 
 
     public User registerUser(User user) {
-        user.setPassword(hashPassword(user.getPassword()));
-        return userRepository.save(user);
+        if (userRepository.findByUsername(user.getUsername()) != null) {
+            // Username already exists, throw an exception or return an error message
+            throw new RuntimeException("Username already exists");
+        }else{
+            user.setPassword(hashPassword(user.getPassword()));
+            return userRepository.save(user);
+        }
     }
 
     public User loginUser(String username, String password) {
